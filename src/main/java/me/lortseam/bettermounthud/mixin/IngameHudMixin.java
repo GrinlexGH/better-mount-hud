@@ -37,7 +37,7 @@ public abstract class IngameHudMixin {
         return 0;
     }
 
-    @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE", ordinal = 1), ordinal = 10)
+    @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE"), ordinal = 11)
     private int bettermounthud$moveAirUp(int y) {
         LivingEntity entity = getRiddenEntity();
         if (entity != null) {
@@ -47,7 +47,7 @@ public abstract class IngameHudMixin {
         return y;
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getJumpingMount()Lnet/minecraft/entity/JumpingMount;"))
+    @Redirect(method = "renderMainHud", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getJumpingMount()Lnet/minecraft/entity/JumpingMount;"))
     private JumpingMount bettermounthud$switchBar(ClientPlayerEntity player) {
         var jumpingMount = player.getJumpingMount();
         if (!client.interactionManager.hasExperienceBar() || client.options.jumpKey.isPressed()
