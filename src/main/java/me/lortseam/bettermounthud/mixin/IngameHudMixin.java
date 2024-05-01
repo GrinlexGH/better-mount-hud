@@ -65,7 +65,10 @@ public abstract class IngameHudMixin {
 
     @Redirect(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;shouldRenderExperience()Z"))
     private boolean bettermounthud$renderExperienceLevel(InGameHud instance) {
-        return client.interactionManager.hasExperienceBar() && !client.options.jumpKey.isPressed() &&
-                !(client.player.getMountJumpStrength() > 0);
+        return client.interactionManager.hasExperienceBar() &&
+                ((client.player.getJumpingMount() != null
+                        && !client.options.jumpKey.isPressed()
+                        && client.player.getMountJumpStrength() <= 0)
+                || client.player.getJumpingMount() == null);
     }
 }
